@@ -14,9 +14,7 @@ function fillArrayValues(req, res, next){
     if(!res.vector){
         res.vector = [];
     }
-
     res.vector.push(parseInt(req.params.id));
-
     (req.params.id < 2) ? (res.valueArray = res.vector,  next()) : (req.params.id--, fillArrayValues(req, res, next));
 }
 
