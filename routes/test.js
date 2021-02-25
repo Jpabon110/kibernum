@@ -1,41 +1,52 @@
 const express = require('express');
 const router = express.Router();
 
-router.get('/:number', validateValue, fillArrayValues, verify, (req, res) =>{
-    res.json({ data: res.prime});
+    router.get('/:number', validateValue, newPrimeSqr, (req, res) =>{
+        res.status(200).json({ data: res.prime});
 })
 
 function validateValue(req, res, next){
    (req.params.number > 0) ? next() : res.status(400).json({ message: 'the value is not valid' });
 }
 
-function fillArrayValues(req, res, next){
-    if(!res.vector && !res.index){
-        res.vector = [];
-        res.index = parseInt(req.params.number);
-    }
-    res.vector.push(res.index);
-    (res.index < 2) ? (res.valueArray = res.vector,  next()) : (res.index--, fillArrayValues(req, res, next));
-}
-
-function verify(req, res, next){
-    const prime = [];
-    for(var index = 0; index < res.valueArray.length; index++){
-        if(primo(res.valueArray[index])){
-            prime.push(res.valueArray[index])
-        }
-    }
-    res.prime = prime;
-    next();
-}
-
-function primo(num) {
-    for (var find = 2; find < num; find++) {
-        if(num%find==0){
-            return false;
-        }
+function findPrimeSquare(num) {
+    if (num < 1) return false;
+    for (var i = 2; i < num; i++) {
+      if (num % i === 0)
+        return false;
     }
     return true;
-}
+  }
+
+function searchingSqr(sqr) {
+    let primeSquare = [];
+    for (var isqr = sqr; isqr > 1; isqr--) {
+      if (findPrimeSquare(isqr)) {
+        primeSquare.push(isqr);
+      }
+    }
+    return primeSquare;
+  }
+
+function newPrimeSqr(req, res, next) {
+    let primeBySqr = [];
+    let finale = [];
+    let noBecount = 0;
+    for (var index = parseInt(req.params.number); index > 1; index--) {
+      primeBySqr = searchingSqr(parseInt(Math.sqrt(index)));
+      for (var indexSqrPrime = 0; indexSqrPrime < primeBySqr.length; indexSqrPrime++) {
+        if (index % primeBySqr[indexSqrPrime] === 0) {
+          noBecount++;
+        }
+      }
+      if (noBecount > 0) {
+        noBecount = 0;
+      } else {
+        finale.push(index);
+      }
+    }
+    res.prime = finale;
+    next();
+  }
 
 module.exports = router;
