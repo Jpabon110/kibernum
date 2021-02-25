@@ -2,10 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/:id', validateValue, fillArrayValues, verify, (req, res) =>{
-    // res.send('data set on array' + req.params.id);
     res.json({ data: res.prime});
-    // console.log(res.prime);
-
 })
 
 function validateValue(req, res, next){
@@ -40,6 +37,5 @@ function primo(num) {
     }
     return true;
 }
-
 
 module.exports = router;
