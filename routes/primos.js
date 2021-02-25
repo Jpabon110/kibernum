@@ -15,7 +15,7 @@ function newPrimeSqr(req, res, next) {
     let finale = [];
     let noBecount = 0;
     for (var index = parseInt(req.params.number); index > 1; index--) {
-      primeBySqr = validations.searchingSqr(parseInt(Math.sqrt(index)));
+      primeBySqr = validations.searchingSqr(index);
       for (var indexSqrPrime = 0; indexSqrPrime < primeBySqr.length; indexSqrPrime++) {
         if (index % primeBySqr[indexSqrPrime] === 0) {
           noBecount++;

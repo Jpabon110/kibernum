@@ -9,7 +9,7 @@ function findPrimeSquare(num) {
 
 function searchingSqr(sqr) {
     let primeSquare = [];
-    for (var isqr = sqr; isqr > 1; isqr--) {
+    for (var isqr = parseInt(Math.sqrt(sqr)); isqr > 1; isqr--) {
       if (findPrimeSquare(isqr)) {
         primeSquare.push(isqr);
       }
