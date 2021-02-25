@@ -1,18 +1,18 @@
 const express = require('express');
 const router = express.Router();
 
-router.get('/:id', validateValue, fillArrayValues, verify, (req, res) =>{
+router.get('/:number', validateValue, fillArrayValues, verify, (req, res) =>{
     res.json({ data: res.prime});
 })
 
 function validateValue(req, res, next){
-   (req.params.id > 0) ? next() : res.status(400).json({ message: 'the value is not valid' });
+   (req.params.number > 0) ? next() : res.status(400).json({ message: 'the value is not valid' });
 }
 
 function fillArrayValues(req, res, next){
     if(!res.vector && !res.index){
         res.vector = [];
-        res.index = parseInt(req.params.id);
+        res.index = parseInt(req.params.number);
     }
     res.vector.push(res.index);
     (res.index < 2) ? (res.valueArray = res.vector,  next()) : (res.index--, fillArrayValues(req, res, next));
@@ -20,9 +20,9 @@ function fillArrayValues(req, res, next){
 
 function verify(req, res, next){
     const prime = [];
-    for(var i = 0; i < res.valueArray.length; i++){
-        if(primo(res.valueArray[i])){
-            prime.push(res.valueArray[i])
+    for(var index = 0; index < res.valueArray.length; index++){
+        if(primo(res.valueArray[index])){
+            prime.push(res.valueArray[index])
         }
     }
     res.prime = prime;
@@ -30,8 +30,8 @@ function verify(req, res, next){
 }
 
 function primo(num) {
-    for (var i = 2; i < num; i++) {
-        if(num%i==0){
+    for (var find = 2; find < num; find++) {
+        if(num%find==0){
             return false;
         }
     }
