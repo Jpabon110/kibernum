@@ -4,14 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server.js",
-    "test": "jest"
+    "start": "server.js",
+    "startDev": "nodemon server.js",
+    "test": "jest --coverage"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1",
-    "mongoose": "^5.11.18"
+    "express": "^4.17.1"
   },
   "devDependencies": {
     "dotenv": "^8.2.0",
